@@ -233,7 +233,7 @@ jobs:
     secrets: inherit
     with:
       aws-region: ${{ needs.build.outputs.aws_default_region }}
-      appsignals-adot-image-name: otelagent/build/libs/aws-opentelemetry-agent.jar
+      appsignals-adot-jar: otelagent/build/libs/aws-opentelemetry-agent.jar
       caller-workflow-name: 'main-build'
 
 #  publish-build-status:
