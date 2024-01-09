@@ -77,27 +77,17 @@ jobs:
 
       - uses: gradle/wrapper-validation-action@v1
 
-#      - name: Configure AWS Credentials
-#        uses: aws-actions/configure-aws-credentials@v4
-#        with:
-#          role-to-assume: ${{ secrets.AWS_ASSUME_ROLE_ARN }}
-#          aws-region: ${{ env.AWS_DEFAULT_REGION }}
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.E2E_TEST_ROLE_ARN }}
+          aws-region: ${{ env.AWS_DEFAULT_REGION }}
 
-#      - name: Log in to AWS ECR
-#        uses: docker/login-action@v3
-#        with:
-#          registry: public.ecr.aws
-#
-#      - name: Build snapshot with Gradle
-#        uses: gradle/gradle-build-action@v2
-#        with:
-#          arguments: build integrationTests snapshot --stacktrace -PenableCoverage=true -PlocalDocker=true
-#        env:
-#          PUBLISH_USERNAME: ${{ secrets.PUBLISH_USERNAME }}
-#          PUBLISH_PASSWORD: ${{ secrets.PUBLISH_PASSWORD }}
-#          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
-#          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
-#
+      - name: Build snapshot with Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: build integrationTests snapshot --stacktrace -PenableCoverage=true -PlocalDocker=true
+
 #      - name: Get current version
 #        id: getADOTJavaVersion
 #        shell: bash
@@ -233,7 +223,7 @@ jobs:
     secrets: inherit
     with:
       aws-region: ${{ needs.build.outputs.aws_default_region }}
-      appsignals-adot-jar: otelagent/build/libs/aws-opentelemetry-agent.jar
+      appsignals-adot-jar: aws-opentelemetry-agent.jar
       caller-workflow-name: 'main-build'
 
 #  publish-build-status:

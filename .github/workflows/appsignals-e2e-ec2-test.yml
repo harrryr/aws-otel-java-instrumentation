@@ -42,6 +42,11 @@ jobs:
           java-version: 17
           distribution: temurin
 
+      - uses: actions/download-artifact@v4
+        if: ${{ github.event.inputs.appsignals-adot-jar }} != ''
+        with:
+          name: ${{ inputs.appsignals-adot-jar }}
+
       - name: Set CW Agent RPM environment variable
         run: |
           ls -f ~/otelagent/build/libs
