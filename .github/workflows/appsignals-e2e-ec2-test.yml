@@ -8,6 +8,10 @@ on:
       aws-region:
         required: true
         type: string
+      appsignals-adot-jar:
+        required: false
+        type: string
+        default: "https://github.com/aws-observability/aws-otel-java-instrumentation/releases/latest/download/aws-opentelemetry-agent.jar"
       caller-workflow-name:
         required: true
         type: string
@@ -21,7 +25,7 @@ env:
   TEST_ACCOUNT: ${{ secrets.APP_SIGNALS_E2E_TEST_ACC }}
   SAMPLE_APP_FRONTEND_SERVICE_JAR: "s3://aws-appsignals-sample-app/main-service.jar"
   SAMPLE_APP_REMOTE_SERVICE_JAR: "s3://aws-appsignals-sample-app/remote-service.jar"
-  APP_SIGNALS_ADOT_JAR: "https://github.com/aws-observability/aws-otel-java-instrumentation/releases/latest/download/aws-opentelemetry-agent.jar"
+  APP_SIGNALS_ADOT_JAR: ${{ inputs.appsignals-adot-jar }}
   METRIC_NAMESPACE: AppSignals
   LOG_GROUP_NAME: /aws/appsignals/generic
 
@@ -40,6 +44,7 @@ jobs:
 
       - name: Set CW Agent RPM environment variable
         run: |
+          ls -f ~/otelagent/build/libs
           if [ ${{ env.AWS_DEFAULT_REGION }} == "us-east-1" ]; then
             echo APP_SIGNALS_CW_AGENT_RPM="https://amazoncloudwatch-agent-us-east-1.s3.amazonaws.com/amazon_linux/amd64/1.300031.0b313/amazon-cloudwatch-agent.rpm" >> $GITHUB_ENV
           else
