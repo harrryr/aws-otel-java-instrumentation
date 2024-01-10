@@ -254,11 +254,6 @@ allprojects {
       }
     }
 
-    tasks.withType<Sign>().configureEach {
-      onlyIf { System.getenv("CI") == "true" }
-    }
-
-
   }
 }
 
