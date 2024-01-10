@@ -42,6 +42,8 @@ nexusPublishing {
     sonatype {
       nexusUrl.set(uri("https://aws.oss.sonatype.org/service/local/"))
       snapshotRepositoryUrl.set(uri("https://aws.oss.sonatype.org/content/repositories/snapshots/"))
+      username.set(System.getenv("PUBLISH_USERNAME"))
+      password.set(System.getenv("PUBLISH_PASSWORD"))
     }
   }
 }
@@ -185,6 +187,83 @@ allprojects {
           "io.opentelemetry.javaagent.shaded.io.opentelemetry.extension.kotlin",
         )
       }
+    }
+  }
+
+  plugins.withId("maven-publish") {
+    plugins.apply("signing")
+
+    afterEvaluate {
+      val publishTask = tasks.named("publishToSonatype")
+
+      postReleaseTask.configure {
+        dependsOn(publishTask)
+      }
+    }
+
+    configure<PublishingExtension> {
+      publications {
+        register<MavenPublication>("maven") {
+          afterEvaluate {
+            artifactId = project.findProperty("archivesBaseName") as String
+          }
+
+          plugins.withId("java-platform") {
+            from(components["javaPlatform"])
+          }
+          plugins.withId("java") {
+            from(components["java"])
+          }
+
+          versionMapping {
+            allVariants {
+              fromResolutionResult()
+            }
+          }
+
+          pom {
+            name.set("AWS Distro for OpenTelemetry Java Agent")
+            description.set(
+              "The Amazon Web Services distribution of the OpenTelemetry Java Instrumentation.",
+            )
+            url.set("https:/github.com/aws-observability/aws-otel-java-instrumentation")
+
+            licenses {
+              license {
+                name.set("Apache License, Version 2.0")
+                url.set("https://aws.amazon.com/apache2.0")
+                distribution.set("repo")
+              }
+            }
+
+            developers {
+              developer {
+                id.set("amazonwebservices")
+                organization.set("Amazon Web Services")
+                organizationUrl.set("https://aws.amazon.com")
+                roles.add("developer")
+              }
+            }
+
+            scm {
+              connection.set("scm:git:git@github.com:aws-observability/aws-otel-java-instrumentation.git")
+              developerConnection.set("scm:git:git@github.com:aws-observability/aws-otel-java-instrumentation.git")
+              url.set("https://github.com/aws-observability/aws-otel-java-instrumentation.git")
+            }
+          }
+        }
+      }
+    }
+
+    tasks.withType<Sign>().configureEach {
+      onlyIf { System.getenv("CI") == "true" }
+    }
+
+    configure<SigningExtension> {
+      val signingKey = System.getenv("GPG_PRIVATE_KEY")
+      val signingPassword = System.getenv("GPG_PASSPHRASE")
+      useInMemoryPgpKeys(signingKey, signingPassword)
+      sign(the<PublishingExtension>().publications["maven"])
     }
   }
 }
