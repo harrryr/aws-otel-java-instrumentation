@@ -90,8 +90,8 @@ jobs:
         env:
           PUBLISH_USERNAME: test
           PUBLISH_PASSWORD: test-pw
-          GPG_PRIVATE_KEY: test
-          GPG_PASSPHRASE: test-pw
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          gpg_password: ${{ secrets.GPG_PASSPHRASE }}
 
 #      - name: Get current version
 #        id: getADOTJavaVersion
