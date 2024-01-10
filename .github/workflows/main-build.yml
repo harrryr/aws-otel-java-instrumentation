@@ -71,6 +71,9 @@ jobs:
 
       - name: Publish patched dependencies to maven local
         uses: ./.github/actions/patch-dependencies
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          gpg_password: ${{ secrets.GPG_PASSPHRASE }}
 
       - uses: gradle/wrapper-validation-action@v1
 
@@ -84,6 +87,11 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           arguments: build integrationTests snapshot --stacktrace -PenableCoverage=true -PlocalDocker=true
+        env:
+          PUBLISH_USERNAME: test
+          PUBLISH_PASSWORD: test-pw
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          gpg_password: ${{ secrets.GPG_PASSPHRASE }}
 
 #      - name: Get current version
 #        id: getADOTJavaVersion
