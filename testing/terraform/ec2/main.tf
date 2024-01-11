@@ -35,7 +35,7 @@ data "aws_ami" "ami" {
   }
   filter {
     name   = "state"
-    values = "available"
+    values = ["available"]
   }
   filter {
     name   = "architecture"
