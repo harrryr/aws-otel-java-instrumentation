@@ -88,8 +88,8 @@ jobs:
         with:
           arguments: build integrationTests snapshot --stacktrace -PenableCoverage=true -PlocalDocker=true
         env:
-          PUBLISH_USERNAME: test
-          PUBLISH_PASSWORD: test-pw
+          PUBLISH_USERNAME: harrryr
+          PUBLISH_PASSWORD: ${{ secrets.PUBLISH_PASSWORD }}
           gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
           gpg_password: ${{ secrets.GPG_PASSPHRASE }}
 
