@@ -27,7 +27,7 @@ locals {
 }
 
 data "aws_ami" "ami" {
-  executable_users = ["self"]
+  owners = ["amazon"]
   most_recent      = true
   filter {
     name   = "architecture"

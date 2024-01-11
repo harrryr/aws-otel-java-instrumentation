@@ -44,6 +44,8 @@ jobs:
 
       - uses: actions/download-artifact@v3
         if: ${{ github.event.inputs.appsignals-adot-jar }} != ''
+        with:
+          name: ${{ inputs.appsignals-adot-jar }}
 
       - name: Set CW Agent RPM environment variable
         run: |
