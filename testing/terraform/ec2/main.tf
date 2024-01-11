@@ -30,6 +30,14 @@ data "aws_ami" "ami" {
   owners           = ["amazon"]
   most_recent      = true
   filter {
+    name   = "name"
+    values = ["al20*-ami-minimal-*-x86_64"]
+  }
+  filter {
+    name   = "state"
+    values = "available"
+  }
+  filter {
     name   = "architecture"
     values = ["x86_64"]
   }

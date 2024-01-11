@@ -1,0 +1,61 @@
+## This workflow aims to run the Application Signals end-to-end tests to test changes
+## on the E2E testing resources before submitting a PR. The e2e-eks-test will deploy a
+## sample app on an EKS cluster, call the APIs, and validate the generated telemetry
+## including logs, metrics, and traces while the e2e-ec2-test will do the same but on
+## two EC2 instances.
+name: Test
+on:
+  push:
+
+jobs:
+  e2e-ec2-test0:
+    uses: ./.github/workflows/appsignals-e2e-ec2-test.yml
+    secrets: inherit
+    with:
+      number: "0"
+  e2e-ec2-test1:
+    uses: ./.github/workflows/appsignals-e2e-ec2-test.yml
+    secrets: inherit
+    with:
+      number: "1"
+  e2e-ec2-test2:
+    uses: ./.github/workflows/appsignals-e2e-ec2-test.yml
+    secrets: inherit
+    with:
+      number: "2"
+  e2e-ec2-test3:
+    uses: ./.github/workflows/appsignals-e2e-ec2-test.yml
+    secrets: inherit
+    with:
+      number: "3"
+  e2e-ec2-test4:
+    uses: ./.github/workflows/appsignals-e2e-ec2-test.yml
+    secrets: inherit
+    with:
+      number: "4"
+  e2e-ec2-test5:
+    uses: ./.github/workflows/appsignals-e2e-ec2-test.yml
+    secrets: inherit
+    with:
+      number: "5"
+  e2e-ec2-test6:
+    uses: ./.github/workflows/appsignals-e2e-ec2-test.yml
+    secrets: inherit
+    with:
+      number: "6"
+  e2e-ec2-test7:
+    uses: ./.github/workflows/appsignals-e2e-ec2-test.yml
+    secrets: inherit
+    with:
+      number: "7"
+  e2e-ec2-test8:
+    uses: ./.github/workflows/appsignals-e2e-ec2-test.yml
+    secrets: inherit
+    with:
+      number: "8"
+  e2e-ec2-test9:
+    uses: ./.github/workflows/appsignals-e2e-ec2-test.yml
+    secrets: inherit
+    with:
+      number: "9"
+
