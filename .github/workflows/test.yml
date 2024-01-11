@@ -15,67 +15,33 @@ jobs:
       number: "0"
       aws-region: us-east-1
       caller-workflow-name: 'test'
-#  e2e-ec2-test1:
-#    uses: ./.github/workflows/appsignals-e2e-ec2-test.yml
-#    secrets: inherit
-#    with:
-#      number: "1"
-#      aws-region: us-east-1
-#      caller-workflow-name: 'test'
-#  e2e-ec2-test2:
-#    uses: ./.github/workflows/appsignals-e2e-ec2-test.yml
-#    secrets: inherit
-#    with:
-#      number: "2"
-#      aws-region: us-east-1
-#      caller-workflow-name: 'test'
-#  e2e-ec2-test3:
-#    uses: ./.github/workflows/appsignals-e2e-ec2-test.yml
-#    secrets: inherit
-#    with:
-#      number: "3"
-#      aws-region: us-east-1
-#      caller-workflow-name: 'test'
-#  e2e-ec2-test4:
-#    uses: ./.github/workflows/appsignals-e2e-ec2-test.yml
-#    secrets: inherit
-#    with:
-#      number: "4"
-#      aws-region: us-east-1
-#      caller-workflow-name: 'test'
-#  e2e-ec2-test5:
-#    uses: ./.github/workflows/appsignals-e2e-ec2-test.yml
-#    secrets: inherit
-#    with:
-#      number: "5"
-#      aws-region: us-east-1
-#      caller-workflow-name: 'test'
-#  e2e-ec2-test6:
-#    uses: ./.github/workflows/appsignals-e2e-ec2-test.yml
-#    secrets: inherit
-#    with:
-#      number: "6"
-#      aws-region: us-east-1
-#      caller-workflow-name: 'test'
-#  e2e-ec2-test7:
-#    uses: ./.github/workflows/appsignals-e2e-ec2-test.yml
-#    secrets: inherit
-#    with:
-#      number: "7"
-#      aws-region: us-east-1
-#      caller-workflow-name: 'test'
-#  e2e-ec2-test8:
-#    uses: ./.github/workflows/appsignals-e2e-ec2-test.yml
-#    secrets: inherit
-#    with:
-#      number: "8"
-#      aws-region: us-east-1
-#      caller-workflow-name: 'test'
-#  e2e-ec2-test9:
-#    uses: ./.github/workflows/appsignals-e2e-ec2-test.yml
-#    secrets: inherit
-#    with:
-#      number: "9"
-#      aws-region: us-east-1
-#      caller-workflow-name: 'test'
+  e2e-ec2-test1:
+    uses: ./.github/workflows/appsignals-e2e-ec2-test.yml
+    secrets: inherit
+    with:
+      number: "1"
+      aws-region: us-east-1
+      caller-workflow-name: 'test'
+  e2e-ec2-test2:
+    uses: ./.github/workflows/appsignals-e2e-ec2-test.yml
+    secrets: inherit
+    with:
+      number: "2"
+      aws-region: us-east-1
+      caller-workflow-name: 'test'
+  e2e-ec2-test3:
+    uses: ./.github/workflows/appsignals-e2e-ec2-test.yml
+    secrets: inherit
+    with:
+      number: "3"
+      aws-region: us-east-1
+      caller-workflow-name: 'test'
+  e2e-ec2-test4:
+    uses: ./.github/workflows/appsignals-e2e-ec2-test.yml
+    secrets: inherit
+    with:
+      number: "4"
+      aws-region: us-east-1
+      caller-workflow-name: 'test'
+
 
