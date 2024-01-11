@@ -122,12 +122,14 @@ jobs:
 #          snapshot-ecr-role: ${{ secrets.JAVA_INSTRUMENTATION_SNAPSHOT_ECR }}
 
       - name: Upload to GitHub Actions
+        id: test
         uses: actions/upload-artifact@v3
         with:
           name: aws-opentelemetry-agent.jar
           path: otelagent/build/libs/aws-opentelemetry-agent-*.jar
 
       - uses: actions/download-artifact@v4
+        if: steps.test.outcome == 'success'
 
 #  create-test-ref:
 #    runs-on: ubuntu-latest
