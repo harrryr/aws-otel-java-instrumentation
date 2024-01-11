@@ -232,7 +232,6 @@ jobs:
     secrets: inherit
     with:
       aws-region: us-east-1
-      appsignals-adot-jar: aws-opentelemetry-agent.jar
       caller-workflow-name: 'main-build'
 
 #  publish-build-status:

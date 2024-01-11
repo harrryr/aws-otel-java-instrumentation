@@ -8,10 +8,6 @@ on:
       aws-region:
         required: true
         type: string
-      appsignals-adot-jar:
-        required: false
-        type: string
-        default: "https://github.com/aws-observability/aws-otel-java-instrumentation/releases/latest/download/aws-opentelemetry-agent.jar"
       caller-workflow-name:
         required: true
         type: string
@@ -23,9 +19,9 @@ permissions:
 env:
   AWS_DEFAULT_REGION: ${{ inputs.aws-region }} # Used by terraform and AWS CLI commands
   TEST_ACCOUNT: ${{ secrets.APP_SIGNALS_E2E_TEST_ACC }}
-  SAMPLE_APP_FRONTEND_SERVICE_JAR: "s3://aws-appsignals-sample-app/main-service.jar"
-  SAMPLE_APP_REMOTE_SERVICE_JAR: "s3://aws-appsignals-sample-app/remote-service.jar"
-  APP_SIGNALS_ADOT_JAR: ${{ inputs.appsignals-adot-jar }}
+  SAMPLE_APP_FRONTEND_SERVICE_JAR: ${{ secrets.APP_SIGNALS_E2E_FE_SA_JAR }}
+  SAMPLE_APP_REMOTE_SERVICE_JAR: ${{ secrets.APP_SIGNALS_E2E_RE_SA_JAR }}
+  APP_SIGNALS_ADOT_JAR: "https://github.com/aws-observability/aws-otel-java-instrumentation/releases/latest/download/aws-opentelemetry-agent.jar"
   METRIC_NAMESPACE: AppSignals
   LOG_GROUP_NAME: /aws/appsignals/generic
 
@@ -47,6 +43,25 @@ jobs:
         with:
           name: ${{ inputs.appsignals-adot-jar }}
 
+      - name: Upload main-build adot.jar to s3
+        if: ${{ inputs.caller-workflow-name }} == 'main-build'
+        run: aws s3 cp ./aws-opentelemetry-agent.jar s3://main-build-adot-jar/aws-opentelemetry-agent.jar
+
+      - name: Update main.tf to download the new aws-opentelemetry-agent.jar
+        if: ${{ inputs.caller-workflow-name }} == 'main-build'
+        working-directory: testing/terraform/ec2
+        run: |
+          old_command='"wget -O adot.jar ${var.adot_jar}",'
+          new_command='"aws s3 cp s3://main-build-adot-jar/aws-opentelemetry-agent.jar ./adot.jar",'
+          sed -i "s|$old_command|$new_command|" "main.tf"
+          
+          if grep -Fq '"aws s3 cp s3://main-build-adot-jar/aws-opentelemetry-agent.jar ./adot.jar",' main.tf; then
+            echo "Command replaced successfully"
+          else
+            echo "sed command failed, exiting."
+            exit 1
+          fi
+
       - name: Set CW Agent RPM environment variable
         run: |
           if [ ${{ env.AWS_DEFAULT_REGION }} == "us-east-1" ]; then
@@ -54,7 +69,6 @@ jobs:
           else
             echo APP_SIGNALS_CW_AGENT_RPM="https://amazoncloudwatch-agent-${{ env.AWS_DEFAULT_REGION }}.s3.${{ env.AWS_DEFAULT_REGION }}.amazonaws.com/amazon_linux/amd64/1.300031.0b313/amazon-cloudwatch-agent.rpm" >> $GITHUB_ENV
           fi
-          
 
       - name: Generate testing id
         run: echo TESTING_ID="${{ github.run_id }}-${{ github.run_number }}" >> $GITHUB_ENV
