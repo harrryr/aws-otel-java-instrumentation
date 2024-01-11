@@ -55,7 +55,7 @@ data "aws_ami" "ami" {
 }
 
 resource "aws_instance" "main_service_instance" {
-  ami                                   = "ami-007833f69c401b453" # Amazon Linux 2 (free tier)
+  ami                                   = "ami-0750006ec0ec032f0" # Amazon Linux 2 (free tier)
   instance_type                         = "t2.micro"
   key_name                              = local.ssh_key_name
   iam_instance_profile                  = "APP_SIGNALS_EC2_TEST_ROLE"
@@ -116,7 +116,7 @@ resource "null_resource" "main_service_setup" {
 }
 
 resource "aws_instance" "remote_service_instance" {
-  ami                                   = "ami-007833f69c401b453" # Amazon Linux 2 (free tier)
+  ami                                   = "ami-0750006ec0ec032f0" # Amazon Linux 2 (free tier)
   instance_type                         = "t2.micro"
   key_name                              = local.ssh_key_name
   iam_instance_profile                  = "APP_SIGNALS_EC2_TEST_ROLE"
