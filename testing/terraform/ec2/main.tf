@@ -92,6 +92,7 @@ resource "null_resource" "main_service_setup" {
       "RUN yum update && yum install -y sudo",
       "usermod -aG sudo test",
       "sudo yum install wget",
+      "y",
       # Install Java 11 and tmux
       "yes | sudo amazon-linux-extras install java-openjdk11",
 
@@ -156,6 +157,8 @@ resource "null_resource" "remote_service_setup" {
       "RUN yum update && yum install -y sudo",
       "usermod -aG sudo test",
       "sudo yum install wget",
+      "echo 'COMPLETED'",
+      "y",
       # Install Java 11 and tmux
       "yes | sudo amazon-linux-extras install java-openjdk11",
 
