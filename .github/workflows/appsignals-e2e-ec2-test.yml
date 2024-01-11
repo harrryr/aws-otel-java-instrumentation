@@ -43,7 +43,7 @@ jobs:
           distribution: temurin
 
       - uses: actions/download-artifact@v3
-        if: ${{ github.event.inputs.appsignals-adot-jar }} != ''
+        if: ${{ github.event.inputs.appsignals-adot-jar }} != 'https://github.com/aws-observability/aws-otel-java-instrumentation/releases/latest/download/aws-opentelemetry-agent.jar'
         with:
           name: ${{ inputs.appsignals-adot-jar }}
 
