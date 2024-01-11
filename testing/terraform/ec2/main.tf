@@ -89,6 +89,7 @@ resource "null_resource" "main_service_setup" {
 
   provisioner "remote-exec" {
     inline = [
+      "su -",
       "yum install sudo",
       "usermod -aG sudo test",
       "sudo yum install wget",
@@ -153,6 +154,7 @@ resource "null_resource" "remote_service_setup" {
 
   provisioner "remote-exec" {
     inline = [
+      "su -",
       "yum install sudo",
       "usermod -aG sudo test",
       "sudo yum install wget",
