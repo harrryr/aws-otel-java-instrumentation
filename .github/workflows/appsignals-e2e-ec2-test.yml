@@ -43,7 +43,7 @@ jobs:
           distribution: temurin
 
       - uses: actions/download-artifact@v3
-        if: ${{ github.event.inputs.caller-workflow-name == 'mainss-build' }}
+        if: ${{ github.event.inputs.caller-workflow-name == 'main-build' }}
         with:
           name: ${{ inputs.appsignals-adot-jar }}
 
