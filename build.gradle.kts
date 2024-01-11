@@ -37,17 +37,6 @@ nebulaRelease {
   addReleaseBranchPattern("""v\d+\.\d+\.x""")
 }
 
-nexusPublishing {
-  repositories {
-    sonatype {
-      nexusUrl.set(uri("https://aws.oss.sonatype.org/service/local/"))
-      snapshotRepositoryUrl.set(uri("https://aws.oss.sonatype.org/content/repositories/snapshots/"))
-      username.set(System.getenv("PUBLISH_USERNAME"))
-      password.set(System.getenv("PUBLISH_PASSWORD"))
-    }
-  }
-}
-
 val releaseTask = tasks.named("release")
 val postReleaseTask = tasks.named("release")
 
