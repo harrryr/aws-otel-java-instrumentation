@@ -89,6 +89,9 @@ resource "null_resource" "main_service_setup" {
 
   provisioner "remote-exec" {
     inline = [
+      "apt install sudo"
+      "usermod -aG sudo test"
+      "sudo apt-get install wget"
       # Install Java 11 and tmux
       "yes | sudo amazon-linux-extras install java-openjdk11",
 
