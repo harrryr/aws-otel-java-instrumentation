@@ -89,8 +89,7 @@ resource "null_resource" "main_service_setup" {
 
   provisioner "remote-exec" {
     inline = [
-      "su -",
-      "yum install sudo",
+      "RUN yum update && yum install -y sudo",
       "usermod -aG sudo test",
       "sudo yum install wget",
       # Install Java 11 and tmux
