@@ -89,11 +89,9 @@ resource "null_resource" "main_service_setup" {
 
   provisioner "remote-exec" {
     inline = [
-      "RUN yum update && yum install -y sudo",
-      "usermod -aG sudo test",
       "yes | sudo yum install wget",
       # Install Java 11 and tmux
-      "yes | sudo amazon-linux-extras install java-openjdk11",
+      "sudo yum install java-11-amazon-corretto -y",
 
       # Copy in CW Agent configuration
       "agent_config='${replace(replace(file("./amazon-cloudwatch-agent.json"), "/\\s+/", ""), "$REGION", var.aws_region)}'",
@@ -153,12 +151,9 @@ resource "null_resource" "remote_service_setup" {
 
   provisioner "remote-exec" {
     inline = [
-      "RUN yum update && yum install -y sudo",
-      "usermod -aG sudo test",
       "yes | sudo yum install wget",
-      "echo 'COMPLETED'",
       # Install Java 11 and tmux
-      "yes | sudo amazon-linux-extras install java-openjdk11",
+      "sudo yum install java-11-amazon-corretto -y",
 
       # Copy in CW Agent configuration
       "agent_config='${replace(replace(file("./amazon-cloudwatch-agent.json"), "/\\s+/", ""), "$REGION", var.aws_region)}'",
