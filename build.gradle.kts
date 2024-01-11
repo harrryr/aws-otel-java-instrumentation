@@ -182,14 +182,6 @@ allprojects {
   plugins.withId("maven-publish") {
     plugins.apply("signing")
 
-    afterEvaluate {
-      val publishTask = tasks.named("publishToSonatype")
-
-      postReleaseTask.configure {
-        dependsOn(publishTask)
-      }
-    }
-
     configure<PublishingExtension> {
       publications {
         register<MavenPublication>("maven") {
