@@ -128,7 +128,7 @@ jobs:
           name: aws-opentelemetry-agent.jar
           path: otelagent/build/libs/aws-opentelemetry-agent-*.jar
 
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v3
         if: steps.test.outcome == 'success'
 
 #  create-test-ref:
@@ -231,7 +231,7 @@ jobs:
     uses: ./.github/workflows/appsignals-e2e-ec2-test.yml
     secrets: inherit
     with:
-      aws-region: ${{ needs.build.outputs.aws_default_region }}
+      aws-region: us-east-1
       appsignals-adot-jar: aws-opentelemetry-agent.jar
       caller-workflow-name: 'main-build'
 
