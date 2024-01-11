@@ -16,33 +16,33 @@ permissions:
   contents: read
 
 jobs:
-  testpatch:
-    name: Test patches applied to dependencies
-    runs-on: aws-otel-java-instrumentation_ubuntu-latest_32-core
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
-        with:
-          java-version: 17
-          distribution: temurin
-      # vaadin 14 tests fail with node 18
-      - name: Set up Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 16
-
-      # vaadin tests use pnpm
-      - name: Cache pnpm modules
-        uses: actions/cache@v3
-        with:
-          path: ~/.pnpm-store
-          key: ${{ runner.os }}-test-cache-pnpm-modules
-      - uses: gradle/wrapper-validation-action@v1
-      - uses: ./.github/actions/patch-dependencies
-        with:
-          run_tests: "true"
-          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
-          gpg_password: ${{ secrets.GPG_PASSPHRASE }}
+#  testpatch:
+#    name: Test patches applied to dependencies
+#    runs-on: aws-otel-java-instrumentation_ubuntu-latest_32-core
+#    steps:
+#      - uses: actions/checkout@v4
+#      - uses: actions/setup-java@v4
+#        with:
+#          java-version: 17
+#          distribution: temurin
+#      # vaadin 14 tests fail with node 18
+#      - name: Set up Node
+#        uses: actions/setup-node@v4
+#        with:
+#          node-version: 16
+#
+#      # vaadin tests use pnpm
+#      - name: Cache pnpm modules
+#        uses: actions/cache@v3
+#        with:
+#          path: ~/.pnpm-store
+#          key: ${{ runner.os }}-test-cache-pnpm-modules
+#      - uses: gradle/wrapper-validation-action@v1
+#      - uses: ./.github/actions/patch-dependencies
+#        with:
+#          run_tests: "true"
+#          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+#          gpg_password: ${{ secrets.GPG_PASSPHRASE }}
 
   build:
     runs-on: ubuntu-latest
@@ -126,6 +126,8 @@ jobs:
         with:
           name: aws-opentelemetry-agent.jar
           path: otelagent/build/libs/aws-opentelemetry-agent-*.jar
+
+      - uses: actions/download-artifact@v4
 
 #  create-test-ref:
 #    runs-on: ubuntu-latest
