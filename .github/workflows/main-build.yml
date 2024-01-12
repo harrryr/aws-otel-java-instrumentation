@@ -128,9 +128,6 @@ jobs:
           name: aws-opentelemetry-agent.jar
           path: otelagent/build/libs/aws-opentelemetry-agent-*.jar
 
-      - uses: actions/download-artifact@v3
-        if: steps.test.outcome == 'success'
-
 #  create-test-ref:
 #    runs-on: ubuntu-latest
 #    outputs:

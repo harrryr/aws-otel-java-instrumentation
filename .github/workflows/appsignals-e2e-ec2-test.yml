@@ -58,7 +58,7 @@ jobs:
       - uses: actions/download-artifact@v3
         if: ${{ inputs.caller-workflow-name }} == 'main-build'
         with:
-          name: ${{ inputs.appsignals-adot-jar }}
+          name: aws-opentelemetry-agent.jar
 
       - name: Upload main-build adot.jar to s3
         if: ${{ inputs.caller-workflow-name }} == 'main-build'
