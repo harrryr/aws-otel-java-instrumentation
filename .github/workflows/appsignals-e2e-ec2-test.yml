@@ -54,19 +54,19 @@ jobs:
           role-to-assume: ${{ secrets.E2E_TEST_ROLE_ARN }}
           aws-region: ${{ env.AWS_DEFAULT_REGION }}
 
-      - uses: actions/download-artifact@v3
-        if: ${{ inputs.caller-workflow-name }} == 'main-build'
-        with:
-          name: aws-opentelemetry-agent.jar
-
-      - name: Upload main-build adot.jar to s3
-        if: ${{ inputs.caller-workflow-name }} == 'main-build'
-        run: aws s3 cp ./aws-opentelemetry-agent-*-SNAPSHOT.jar s3://main-build-adot-jar/aws-opentelemetry-agent.jar
+#      - uses: actions/download-artifact@v3
+#        if: ${{ inputs.caller-workflow-name }} == 'main-build'
+#        with:
+#          name: aws-opentelemetry-agent.jar
+#
+#      - name: Upload main-build adot.jar to s3
+#        if: ${{ inputs.caller-workflow-name }} == 'main-build'
+#        run: aws s3 cp ./aws-opentelemetry-agent-*-SNAPSHOT.jar s3://main-build-adot-jar/aws-opentelemetry-agent.jar
 
       - name: Set Get ADOT.jar command environment variable
         working-directory: testing/terraform/ec2
         run: |
-          if [ ${{ inputs.caller-workflow-name }} == 'main-build' ]; then
+          if [ ${{ inputs.caller-workflow-name }} == "main-build" ]; then
             echo APP_SIGNALS_GET_ADOT_JAR="aws s3 cp s3://main-build-adot-staging-jar/aws-opentelemetry-agent.jar ./adot.jar" >> $GITHUB_ENV
           else
             echo APP_SIGNALS_GET_ADOT_JAR="wget -O adot.jar https://github.com/aws-observability/aws-otel-java-instrumentation/releases/latest/download/aws-opentelemetry-agent.jar" >> $GITHUB_ENV
