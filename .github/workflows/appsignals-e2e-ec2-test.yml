@@ -66,10 +66,11 @@ jobs:
       - name: Set Get ADOT.jar command environment variable
         working-directory: testing/terraform/ec2
         run: |
-          if [ ${{ inputs.caller-workflow-name }} == "main-build" ]; then
+          if [ ${{ inputs.caller-workflow-name }} == 'main-build' ]; then
             echo APP_SIGNALS_GET_ADOT_JAR="aws s3 cp s3://main-build-adot-staging-jar/aws-opentelemetry-agent.jar ./adot.jar" >> $GITHUB_ENV
           else
             echo APP_SIGNALS_GET_ADOT_JAR="wget -O adot.jar https://github.com/aws-observability/aws-otel-java-instrumentation/releases/latest/download/aws-opentelemetry-agent.jar" >> $GITHUB_ENV
+          fi
 
       - name: Set up terraform
         uses: hashicorp/setup-terraform@v3
