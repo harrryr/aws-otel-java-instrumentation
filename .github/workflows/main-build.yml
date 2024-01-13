@@ -127,15 +127,15 @@ jobs:
           name: aws-opentelemetry-agent.jar
           path: otelagent/build/libs/aws-opentelemetry-agent-*.jar
 
-default-region-output:
-  runs-on: ubuntu-latest
-  outputs:
-    aws_default_region: ${{ steps.default_region_output.outputs.aws_default_region }}
-  steps:
-    - name: Set default region output
-      id: default_region_output
-      run: |
-        echo "aws_default_region=${{ env.AWS_DEFAULT_REGION }}" >> $GITHUB_OUTPUT
+  default-region-output:
+    runs-on: ubuntu-latest
+    outputs:
+      aws_default_region: ${{ steps.default_region_output.outputs.aws_default_region }}
+    steps:
+      - name: Set default region output
+        id: default_region_output
+        run: |
+          echo "aws_default_region=${{ env.AWS_DEFAULT_REGION }}" >> $GITHUB_OUTPUT
 #  create-test-ref:
 #    runs-on: ubuntu-latest
 #    outputs:
@@ -236,7 +236,7 @@ default-region-output:
     uses: ./.github/workflows/appsignals-e2e-ec2-test.yml
     secrets: inherit
     with:
-      aws-region: us-east-1
+      aws-region: ${{ needs.default-region-output.outputs.aws_default_region }}
       caller-workflow-name: 'main-build'
 
 #  publish-build-status:
