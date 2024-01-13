@@ -97,8 +97,8 @@ jobs:
               -var="test_id=${{ env.TESTING_ID }}" \
               -var="sample_app_jar=${{ env.SAMPLE_APP_FRONTEND_SERVICE_JAR }}" \
               -var="sample_remote_app_jar=${{ env.SAMPLE_APP_REMOTE_SERVICE_JAR }}" \
-              -var="cw_agent_rpm=${{ env.APP_SIGNALS_GET_CW_AGENT_RPM }}" \
-              -var="adot_jar=${{ env.APP_SIGNALS_GET_ADOT_JAR }}" \
+              -var="get_cw_agent_rpm=${{ env.APP_SIGNALS_GET_CW_AGENT_RPM }}" \
+              -var="get_adot_jar=${{ env.APP_SIGNALS_GET_ADOT_JAR }}" \
             || deployment_failed=$?
           
             if [ $deployment_failed -eq 1 ]; then
