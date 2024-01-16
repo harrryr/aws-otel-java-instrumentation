@@ -55,12 +55,12 @@ jobs:
           aws-region: ${{ env.AWS_DEFAULT_REGION }}
 
       - uses: actions/download-artifact@v3
-        if: ${{ inputs.caller-workflow-name }} == "main-build"
+        if: inputs.caller-workflow-name == 'main-build'
         with:
           name: aws-opentelemetry-agent.jar
 
       - name: Upload main-build adot.jar to s3
-        if: ${{ inputs.caller-workflow-name }} == "main-build"
+        if: inputs.caller-workflow-name == 'main-build'
         run: aws s3 cp ./aws-opentelemetry-agent-*-SNAPSHOT.jar s3://main-build-adot-jar/aws-opentelemetry-agent.jar
 
       - name: Set Get ADOT.jar command environment variable
