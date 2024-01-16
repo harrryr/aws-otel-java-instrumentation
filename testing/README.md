@@ -34,6 +34,7 @@ Additional Resource: https://docs.github.com/en/actions/deployment/security-hard
 ### 2. Create an EKS Cluster 
 The E2E EKS test uses an EKS cluster to deploy the sample apps.
 #### Setup Environment with the Appropriate Roles and Permissions.
+Note: Make sure to replace <AccountID> with the desired cluster name.
 - First, assume Admin role from the test account by running `ada credentials update --account=<AccountID> --role=Admin --provider=isengard --once`
 - Assume the e2e test role by running 
   - `output=$(aws sts assume-role --role-arn arn:aws:iam::<AccountID>:role/<E2ETestRole> --role-session-name AWSCLI-Session)`
@@ -42,7 +43,7 @@ The E2E EKS test uses an EKS cluster to deploy the sample apps.
   - `export AWS_SESSION_TOKEN=$(echo $output | jq -r .Credentials.SessionToken)`
 - Run `aws sts get-caller-identity` to check if you are in the correct role
 #### Create a new Cluster
-Make sure to replace <ClusterName> with the desired cluster name.
+Note: Make sure to replace <ClusterName> with the desired cluster name.
 - Next, create the cluster by running `eksctl create cluster --name <ClusterName> --region us-east-1 --zones us-east-1a,us-east-1b`. This will take around ~10 minutes. 
 #### Install AWS Load Balancer Controller Add-on
 - Finally, install the AWS Load Balancer Controller add-on by running the following commands. Make sure to replace the `<ClusterName>` and `<AccountID>` with the correct value.
@@ -64,8 +65,8 @@ Make sure to replace <ClusterName> with the desired cluster name.
 - Login to AWS, go to the IAM console and click on the Roles tab. Click Create role.
 - Choose AWS service, and choose EC2 as the use case. Click Next.
 - Choose AmazonS3ReadOnlyAccess, AWSXrayWriteOnlyAccess, and CloudWatchAgentServerPolicy as the permission. 
-- Type the role name and click "Create role".
-- 
+- Type the role name as `APP_SIGNALS_EC2_TEST_ROLE` and click "Create role".
+
 #### Setting Up Default VPC
 - Go to the VPC console and on the routing table for the default VPC, click Edit routes. (The default VPC should have the `-` name if it hasn't been assigned to another VPC before)
 - Click add routes, for destination add `0.0.0.0/0`, for target add Internet Gateway and save changes.
@@ -85,7 +86,6 @@ Follow the instructions under [here](./sample-apps/README.md) to build the sampl
 - Add the following secrets to the repository
   - APP_SIGNALS_E2E_TEST_ACC: `<AccountID>`
   - E2E_TEST_ROLE_ARN: `arn:aws:iam::<AccountID>:role/<RoleName>`
-  - APP_SIGNALS_E2E_EC2_TEST_ROLE: <EC2_IAM_ROLE_NAME>
   - APP_SIGNALS_E2E_FE_SA_IMG: `<AccountID>.dkr.ecr.us-east-1.amazonaws.com/<Path to Sample App Image>`
   - APP_SIGNALS_E2E_RE_SA_IMG: `<AccountID>.dkr.ecr.us-east-1.amazonaws.com/<Path to Remote Sample App Image>`
   - APP_SIGNALS_E2E_FE_SA_JAR: s3://<BucketName>/<FileName.jar>
