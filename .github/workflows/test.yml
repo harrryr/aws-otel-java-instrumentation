@@ -18,7 +18,7 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    outputs:
+#    outputs:
 #      java_agent_tag: ${{ steps.java_agent_versioning.outputs.STAGING_TAG}}
 #      staging-image: ${{ steps.imageOutput.outputs.stagingImage }}
 #      staging_registry: ${{ steps.imageOutput.outputs.stagingRegistry }}
