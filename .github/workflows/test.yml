@@ -11,10 +11,6 @@ concurrency:
   group: java-agent-main-build
   cancel-in-progress: false
 
-permissions:
-  id-token: write
-  contents: read
-
 jobs:
 #  build:
 #    runs-on: ubuntu-latest
@@ -115,9 +111,6 @@ jobs:
 
   # Application Signals specific e2e tests
   application-signals-e2e-test:
-    concurrency:
-      group: e2e-adot-test
-      cancel-in-progress: false
 #    needs: [build, default-region-output]
     uses: ./.github/workflows/application-signals-e2e-test.yml
     secrets: inherit
