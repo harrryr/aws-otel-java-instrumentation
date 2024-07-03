@@ -121,6 +121,4 @@ jobs:
     needs: [build, default-region-output]
     uses: ./.github/workflows/application-signals-e2e-test.yml
     secrets: inherit
-    with:
-      adot-image-name: ${{ needs.build.outputs.staging-image }}
 
