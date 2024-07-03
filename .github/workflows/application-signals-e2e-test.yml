@@ -9,9 +9,8 @@ on:
   workflow_call:
     inputs:
       adot-image-name:
-        required: false
+        required: true
         type: string
-        default: "TEST"
 
 permissions:
   id-token: write
