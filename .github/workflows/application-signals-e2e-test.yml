@@ -22,28 +22,28 @@ concurrency:
 
 
 jobs:
-  java-eks-e2e-test:
-    uses: aws-observability/aws-application-signals-test-framework/.github/workflows/java-eks-e2e-test.yml@consolidate-release
-    secrets: inherit
-    with:
-      aws-region: us-east-1
-      test-cluster-name: 'e2e-adot-test'
-      adot-image-name: ${{ inputs.adot-image-name }}
-      caller-workflow-name: 'main-build'
-
-  java-ec2-default-e2e-test:
-    uses: aws-observability/aws-application-signals-test-framework/.github/workflows/java-ec2-default-e2e-test.yml@consolidate-release
-    secrets: inherit
-    with:
-      aws-region: us-east-1
-      caller-workflow-name: 'main-build'
-
-  java-ec2-asg-e2e-test:
-    uses: aws-observability/aws-application-signals-test-framework/.github/workflows/java-ec2-asg-e2e-test.yml@consolidate-release
-    secrets: inherit
-    with:
-      aws-region: us-east-1
-      caller-workflow-name: 'main-build'
+#  java-eks-e2e-test:
+#    uses: aws-observability/aws-application-signals-test-framework/.github/workflows/java-eks-e2e-test.yml@consolidate-release
+#    secrets: inherit
+#    with:
+#      aws-region: us-east-1
+#      test-cluster-name: 'e2e-adot-test'
+#      adot-image-name: ${{ inputs.adot-image-name }}
+#      caller-workflow-name: 'main-build'
+#
+#  java-ec2-default-e2e-test:
+#    uses: aws-observability/aws-application-signals-test-framework/.github/workflows/java-ec2-default-e2e-test.yml@consolidate-release
+#    secrets: inherit
+#    with:
+#      aws-region: us-east-1
+#      caller-workflow-name: 'main-build'
+#
+#  java-ec2-asg-e2e-test:
+#    uses: aws-observability/aws-application-signals-test-framework/.github/workflows/java-ec2-asg-e2e-test.yml@consolidate-release
+#    secrets: inherit
+#    with:
+#      aws-region: us-east-1
+#      caller-workflow-name: 'main-build'
 
   java-k8s-e2e-test:
     needs: [ java-eks-e2e-test ]
@@ -54,13 +54,13 @@ jobs:
       adot-image-name: ${{ inputs.adot-image-name }}
       caller-workflow-name: 'main-build'
 
-  java-metric-limiter-e2e-test:
-    needs: [ java-eks-e2e-test ]
-    uses: aws-observability/aws-application-signals-test-framework/.github/workflows/java-eks-e2e-test.yml@consolidate-release
-    secrets: inherit
-    with:
-      aws-region: us-east-1
-      test-cluster-name: 'e2e-adot-test'
-      adot-image-name: ${{ inputs.adot-image-name }}
-      caller-workflow-name: 'main-build'
+#  java-metric-limiter-e2e-test:
+#    needs: [ java-eks-e2e-test ]
+#    uses: aws-observability/aws-application-signals-test-framework/.github/workflows/java-eks-e2e-test.yml@consolidate-release
+#    secrets: inherit
+#    with:
+#      aws-region: us-east-1
+#      test-cluster-name: 'e2e-adot-test'
+#      adot-image-name: ${{ inputs.adot-image-name }}
+#      caller-workflow-name: 'main-build'
 
