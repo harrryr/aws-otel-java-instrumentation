@@ -19,10 +19,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     outputs:
-      java_agent_tag: ${{ steps.java_agent_versioning.outputs.STAGING_TAG}}
-      staging-image: ${{ steps.imageOutput.outputs.stagingImage }}
-      staging_registry: ${{ steps.imageOutput.outputs.stagingRegistry }}
-      staging_repository: ${{ steps.imageOutput.outputs.stagingRepository }}
+#      java_agent_tag: ${{ steps.java_agent_versioning.outputs.STAGING_TAG}}
+#      staging-image: ${{ steps.imageOutput.outputs.stagingImage }}
+#      staging_registry: ${{ steps.imageOutput.outputs.stagingRegistry }}
+#      staging_repository: ${{ steps.imageOutput.outputs.stagingRepository }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -122,5 +122,5 @@ jobs:
     uses: ./.github/workflows/application-signals-e2e-test.yml
     secrets: inherit
     with:
-      adot-image-name: ${{ needs.build.outputs.staging-image }}
+      adot-image-name: 611364707713.dkr.ecr.us-west-2.amazonaws.com/adot-autoinstrumentation-java-operator-staging:1.33.0-SNAPSHOT-c417486
 
