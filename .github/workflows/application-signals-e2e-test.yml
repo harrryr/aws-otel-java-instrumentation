@@ -11,6 +11,7 @@ on:
       adot-image-name:
         required: false
         type: string
+        default: "TEST"
 
 permissions:
   id-token: write
