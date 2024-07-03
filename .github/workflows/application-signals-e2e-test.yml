@@ -46,7 +46,6 @@ jobs:
 #      caller-workflow-name: 'main-build'
 
   java-k8s-e2e-test:
-    needs: [ java-eks-e2e-test ]
     uses: aws-observability/aws-application-signals-test-framework/.github/workflows/java-k8s-e2e-test.yml@consolidate-release
     secrets: inherit
     with:
