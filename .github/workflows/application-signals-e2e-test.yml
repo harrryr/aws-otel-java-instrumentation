@@ -9,7 +9,7 @@ on:
   workflow_call:
     inputs:
       adot-image-name:
-        required: true
+        required: false
         type: string
 
 permissions:
