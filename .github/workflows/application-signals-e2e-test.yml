@@ -16,9 +16,9 @@ permissions:
   id-token: write
   contents: read
 
-concurrency:
-  group: '${{ github.workflow }} @ ${{ inputs.aws-region }}'
-  cancel-in-progress: false
+#concurrency:
+#  group: '${{ github.workflow }} @ ${{ inputs.aws-region }}'
+#  cancel-in-progress: false
 
 
 jobs:

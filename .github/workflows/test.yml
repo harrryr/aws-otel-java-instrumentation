@@ -113,13 +113,13 @@ jobs:
 #        run: |
 #            echo "aws_default_region=${{ env.AWS_DEFAULT_REGION }}" >> $GITHUB_OUTPUT
 
-#  # Application Signals specific e2e tests
-#  application-signals-e2e-test:
-##    needs: [build, default-region-output]
-#    uses: ./.github/workflows/application-signals-e2e-test.yml
-#    secrets: inherit
-#    with:
-#      adot-image-name: 611364707713.dkr.ecr.us-west-2.amazonaws.com/adot-autoinstrumentation-java-operator-staging:1.33.0-SNAPSHOT-c417486
+  # Application Signals specific e2e tests
+  application-signals-e2e-test:
+#    needs: [build, default-region-output]
+    uses: ./.github/workflows/application-signals-e2e-test.yml
+    secrets: inherit
+    with:
+      adot-image-name: 611364707713.dkr.ecr.us-west-2.amazonaws.com/adot-autoinstrumentation-java-operator-staging:1.33.0-SNAPSHOT-c417486
 
 #  java-k8s-e2e-test:
 #    uses: aws-observability/aws-application-signals-test-framework/.github/workflows/java-k8s-e2e-test.yml@consolidate-release
