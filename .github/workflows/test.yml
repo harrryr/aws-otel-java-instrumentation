@@ -113,13 +113,13 @@ jobs:
 #        run: |
 #            echo "aws_default_region=${{ env.AWS_DEFAULT_REGION }}" >> $GITHUB_OUTPUT
 
-  # Application Signals specific e2e tests
-  application-signals-e2e-test:
-#    needs: [build, default-region-output]
-    uses: ./.github/workflows/application-signals-e2e-test.yml
-    secrets: inherit
-    with:
-      adot-image-name: 611364707713.dkr.ecr.us-west-2.amazonaws.com/adot-autoinstrumentation-java-operator-staging:1.33.0-SNAPSHOT-c417486
+#  # Application Signals specific e2e tests
+#  application-signals-e2e-test:
+##    needs: [build, default-region-output]
+#    uses: ./.github/workflows/application-signals-e2e-test.yml
+#    secrets: inherit
+#    with:
+#      adot-image-name: 611364707713.dkr.ecr.us-west-2.amazonaws.com/adot-autoinstrumentation-java-operator-staging:1.33.0-SNAPSHOT-c417486
 
 #  java-k8s-e2e-test:
 #    uses: aws-observability/aws-application-signals-test-framework/.github/workflows/java-k8s-e2e-test.yml@consolidate-release
@@ -128,4 +128,17 @@ jobs:
 #      aws-region: us-east-1
 #      adot-image-name: 611364707713.dkr.ecr.us-west-2.amazonaws.com/adot-autoinstrumentation-java-operator-staging:1.33.0-SNAPSHOT-c417486
 #      caller-workflow-name: 'main-build'
+
+  # AppSignals specific e2e tests
+  appsignals-e2e-eks-test:
+    concurrency:
+      group: e2e-adot-test
+      cancel-in-progress: false
+    uses: ./.github/workflows/appsignals-e2e-eks-test.yml
+    secrets: inherit
+    with:
+      aws-region: us-east-1
+      test-cluster-name: "e2e-adot-test"
+      appsignals-adot-image-name: 611364707713.dkr.ecr.us-west-2.amazonaws.com/adot-autoinstrumentation-java-operator-staging:1.33.0-SNAPSHOT-c417486
+      caller-workflow-name: 'main-build'
 
