@@ -1,0 +1,21 @@
+{
+    "version":"1.0",
+    "trustPolicies":[
+       {
+          "name":"aws-signer-tp",
+          "registryScopes":[
+             "*"
+          ],
+          "signatureVerification":{
+             "level":"strict"
+          },
+          "trustStores":[
+             "signingAuthority:aws-signer-ts"
+          ],
+          "trustedIdentities":[
+             "arn:aws:signer:us-east-1:612966150583:/signing-profiles/AWSDistroOpenTelemetrySigningProfileBF578949_a75m7igIPnaz"
+          ]
+       }
+    ]
+ }
+ 

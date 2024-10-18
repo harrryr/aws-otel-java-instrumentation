@@ -106,6 +106,25 @@ jobs:
             ${{ env.PUBLIC_REPOSITORY }}:v${{ github.event.inputs.version }}
             ${{ env.PRIVATE_REPOSITORY }}:v${{ github.event.inputs.version }}
 
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ASSUME_ROLE_ARN_RELEASE }}
+          aws-region: ${{ env.AWS_PUBLIC_ECR_REGION }}
+
+      - name: Setup Notation
+        run: |
+          curl -L -o aws-signer-notation-cli_amd64.deb https://d2hvyiie56hcat.cloudfront.net/linux/amd64/installer/deb/latest/aws-signer-notation-cli_amd64.deb
+          sudo apt install ./aws-signer-notation-cli_amd64.deb
+
+      - name: Sign released image
+        run: notation sign public.ecr.aws/aws-observability/adot-autoinstrumentation-java:${{ github.event.inputs.version }} --plugin "com.amazonaws.signer.notation.plugin" --id "arn:aws:signer:us-east-1:612966150583:/signing-profiles/AWSDistroOpenTelemetrySigningProfileBF578949_a75m7igIPnaz"
+    
+      - name: Verify signed image
+        run: |
+          notation policy import ./.github/trust-policy/signed-image.json
+          notation verify public.ecr.aws/aws-observability/adot-autoinstrumentation-java:${{ github.event.inputs.version }}
+
       - name: Build and Publish release with Gradle
         uses: gradle/gradle-build-action@v3
         with:
