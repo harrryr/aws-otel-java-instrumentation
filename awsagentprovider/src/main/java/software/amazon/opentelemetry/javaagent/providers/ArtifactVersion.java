@@ -16,5 +16,5 @@
 package software.amazon.opentelemetry.javaagent.providers;
 
 public final class ArtifactVersion {
-  public final String VERSION = "1.32.5.dev0";
+  public final String VERSION = "1.32.7.dev0";
 }
