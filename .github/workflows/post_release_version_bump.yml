@@ -96,7 +96,6 @@ jobs:
           git checkout -b "prepare-main-for-next-dev-cycle-${VERSION}" origin/$RELEASE_BRANCH
 
       - name: Update version to next development version in main
-        # TODO update version in daily_scan.yml
         run: |
           DEV_VERSION="1.32.7.dev0"
           sed -i "s/public static String VERSION = \".*\";/public static String VERSION = \"${DEV_VERSION}\";/" awsagentprovider/src/main/java/software/amazon/opentelemetry/javaagent/providers/Version.java

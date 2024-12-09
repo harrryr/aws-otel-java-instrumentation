@@ -22,5 +22,5 @@ final class AwsAttributeKeys {
 
   private AwsAttributeKeys() {}
 
-  static final String VERSION = "1.32.5.dev0";
+  public static VERSION = "1.32.5.dev0";
 }
