@@ -100,7 +100,7 @@ jobs:
           DEV_VERSION="1.32.7.dev0"
           sed -i "s/public final String VERSION = \".*\";/public final String VERSION = \"${DEV_VERSION}\";/" awsagentprovider/src/main/java/software/amazon/opentelemetry/javaagent/providers/ArtifactVersion.java
           VERSION="1.32.7"
-          git add awsagentprovider/src/main/java/software/amazon/opentelemetry/javaagent/providers/Version.java
+          git add awsagentprovider/src/main/java/software/amazon/opentelemetry/javaagent/providers/ArtifactVersion.java
 
       - name: Append latest release checksum to release-build-metadata.json
         run: |
