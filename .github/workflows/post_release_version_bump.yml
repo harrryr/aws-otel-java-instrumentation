@@ -34,7 +34,7 @@ jobs:
       - name: Get current major.minor version from main branch
         id: get_version
         run: |
-          CURRENT_VERSION=$(grep 'public static string version' awsagentprovider/src/main/java/software/amazon/opentelemetry/javaagent/providers/Version.java | sed -E 's/  public static String VERSION = "([0-9]+\.[0-9]+)\.[0-9]+.*";/\1/')
+          CURRENT_VERSION=$(grep 'public static String VERSION' awsagentprovider/src/main/java/software/amazon/opentelemetry/javaagent/providers/Version.java | sed -E 's/  public static String VERSION = "([0-9]+\.[0-9]+)\.[0-9]+.*";/\1/')
           echo "CURRENT_MAJOR_MINOR_VERSION=$CURRENT_VERSION" >> $GITHUB_ENV
 
       - name: Set major and minor for current version
