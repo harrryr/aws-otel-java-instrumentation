@@ -15,12 +15,6 @@
 
 package software.amazon.opentelemetry.javaagent.providers;
 
-import io.opentelemetry.api.common.AttributeKey;
-
-/** Utility class holding attribute keys with special meaning to AWS components */
-final class AwsAttributeKeys {
-
-  private AwsAttributeKeys() {}
-
-  public static VERSION = "1.32.5.dev0";
+public final class ArtifactVersion {
+  public final String VERSION = "1.32.5.dev0";
 }

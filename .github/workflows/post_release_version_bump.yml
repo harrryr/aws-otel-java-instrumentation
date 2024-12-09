@@ -34,7 +34,7 @@ jobs:
       - name: Get current major.minor version from main branch
         id: get_version
         run: |
-          CURRENT_VERSION=$(grep 'public static String VERSION' awsagentprovider/src/main/java/software/amazon/opentelemetry/javaagent/providers/Version.java | sed -E 's/  public static String VERSION = "([0-9]+\.[0-9]+)\.[0-9]+.*";/\1/')
+          CURRENT_VERSION=$(grep 'public final String VERSION' awsagentprovider/src/main/java/software/amazon/opentelemetry/javaagent/providers/ArtifactVersion.java | sed -E 's/  public final String VERSION = "([0-9]+\.[0-9]+)\.[0-9]+.*";/\1/')
           echo "CURRENT_MAJOR_MINOR_VERSION=$CURRENT_VERSION" >> $GITHUB_ENV
 
       - name: Set major and minor for current version
@@ -98,7 +98,7 @@ jobs:
       - name: Update version to next development version in main
         run: |
           DEV_VERSION="1.32.7.dev0"
-          sed -i "s/public static String VERSION = \".*\";/public static String VERSION = \"${DEV_VERSION}\";/" awsagentprovider/src/main/java/software/amazon/opentelemetry/javaagent/providers/Version.java
+          sed -i "s/public final String VERSION = \".*\";/public final String VERSION = \"${DEV_VERSION}\";/" awsagentprovider/src/main/java/software/amazon/opentelemetry/javaagent/providers/ArtifactVersion.java
           VERSION="1.32.7"
           git add awsagentprovider/src/main/java/software/amazon/opentelemetry/javaagent/providers/Version.java
 
