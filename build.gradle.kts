@@ -37,17 +37,6 @@ nebulaRelease {
   addReleaseBranchPattern("""v\d+\.\d+\.x""")
 }
 
-nexusPublishing {
-  repositories {
-    sonatype {
-      nexusUrl.set(uri("https://aws.oss.sonatype.org/service/local/"))
-      snapshotRepositoryUrl.set(uri("https://aws.oss.sonatype.org/content/repositories/snapshots/"))
-      username.set(System.getenv("PUBLISH_TOKEN_USERNAME"))
-      password.set(System.getenv("PUBLISH_TOKEN_PASSWORD"))
-    }
-  }
-}
-
 val releaseTask = tasks.named("release")
 val postReleaseTask = tasks.named("release")
 
@@ -193,14 +182,6 @@ allprojects {
   plugins.withId("maven-publish") {
     plugins.apply("signing")
 
-    afterEvaluate {
-      val publishTask = tasks.named("publishToSonatype")
-
-      postReleaseTask.configure {
-        dependsOn(publishTask)
-      }
-    }
-
     configure<PublishingExtension> {
       publications {
         register<MavenPublication>("maven") {
@@ -253,17 +234,6 @@ allprojects {
           }
         }
       }
-    }
-
-    tasks.withType<Sign>().configureEach {
-      onlyIf { System.getenv("CI") == "true" }
-    }
-
-    configure<SigningExtension> {
-      val signingKey = System.getenv("GPG_PRIVATE_KEY")
-      val signingPassword = System.getenv("GPG_PASSPHRASE")
-      useInMemoryPgpKeys(signingKey, signingPassword)
-      sign(the<PublishingExtension>().publications["maven"])
     }
   }
 }
